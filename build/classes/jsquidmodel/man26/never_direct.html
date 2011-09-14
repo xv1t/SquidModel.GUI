@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: never_direct</title>
+    <meta name="keywords" content="squid squid.conf config configure never_direct" />
+    <meta name="description" content="Squid 2.6.STABLE18  never_direct " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_never_direct">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_never_direct">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="never_direct">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="never_direct">never_direct</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Usage: never_direct allow|deny [!]aclname ...
+
+	never_direct is the opposite of always_direct.  Please read
+	the description for always_direct if you have not already.
+
+	With 'never_direct' you can use ACL elements to specify
+	requests which should NEVER be forwarded directly to origin
+	servers.  For example, to force the use of a proxy for all
+	requests, except those in your local domain use something like:
+
+		acl local-servers dstdomain .foo.net
+		acl all src 0.0.0.0/0.0.0.0
+		never_direct deny local-servers
+		never_direct allow all
+
+	or if Squid is inside a firewall and there are local intranet
+	servers inside the firewall use something like:
+
+		acl local-intranet dstdomain .foo.net
+		acl local-external dstdomain external.foo.net
+		always_direct deny local-external
+		always_direct allow local-intranet
+		never_direct allow all
+
+	This option replaces some v1.1 options such as inside_firewall
+	and firewall_ip.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_never_direct">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_never_direct">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: https_port</title>
+    <meta name="keywords" content="squid squid.conf config configure https_port" />
+    <meta name="description" content="Squid 2.6.STABLE18  https_port " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_https_port">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_https_port">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="https_port">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="https_port">https_port</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires">--enable-ssl</td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Usage:  [ip:]port cert=certificate.pem [key=key.pem] [options...]
+
+	The socket address where Squid will listen for HTTPS client
+	requests.
+
+	This is really only useful for situations where you are running
+	squid in accelerator mode and you want to do the SSL work at the
+	accelerator level.
+
+	You may specify multiple socket addresses on multiple lines,
+	each with their own SSL certificate and/or options.
+
+	Options:
+
+	   accel	Accelerator mode. Also needs at least one of
+	   	        defaultsite or vhost.
+
+	   defaultsite=	The name of the https site presented on
+			this port. Implies accel.
+
+	   vhost	Accelerator mode using Host header for virtual
+			domain support. Requires a wildcard certificate
+			or other certificate valid for more than one domain.
+			Implies accel.
+
+	   urlgroup=	Default urlgroup to mark requests with (see
+			also acl urlgroup and url_rewrite_program).
+
+	   protocol=	Protocol to reconstruct accelerated requests with.
+			Defaults to https.
+
+	   cert=	Path to SSL certificate (PEM format).
+
+	   key=		Path to SSL private key file (PEM format)
+			if not specified, the certificate file is
+			assumed to be a combined certificate and
+			key file.
+
+	   version=	The version of SSL/TLS supported
+			    1	automatic (default)
+			    2	SSLv2 only
+			    3	SSLv3 only
+			    4	TLSv1 only
+
+	   cipher=	Colon separated list of supported ciphers.
+
+	   options=	Various SSL engine options. The most important
+			being:
+			    NO_SSLv2  Disallow the use of SSLv2
+			    NO_SSLv3  Disallow the use of SSLv3
+			    NO_TLSv1  Disallow the use of TLSv1
+			    SINGLE_DH_USE Always create a new key when using
+				      temporary/ephemeral DH key exchanges
+			See src/ssl_support.c or OpenSSL SSL_CTX_set_options
+			documentation for a complete list of options.
+
+	   clientca=	File containing the list of CAs to use when
+			requesting a client certificate.
+
+	   cafile=	File containing additional CA certificates to
+			use when verifying client certificates. If unset
+			clientca will be used.
+
+	   capath=	Directory containing additional CA certificates
+			and CRL lists to use when verifying client certificates.
+
+	   crlfile=	File of additional CRL lists to use when verifying
+			the client certificate, in addition to CRLs stored in
+			the capath. Implies VERIFY_CRL flag below.
+
+	   dhparams=	File containing DH parameters for temporary/ephemeral
+			DH key exchanges.
+
+	   sslflags=	Various flags modifying the use of SSL:
+			    DELAYED_AUTH
+				Don't request client certificates
+				immediately, but wait until acl processing
+				requires a certificate (not yet implemented).
+			    NO_DEFAULT_CA
+				Don't use the default CA lists built in
+				to OpenSSL.
+			    NO_SESSION_REUSE
+				Don't allow for session reuse. Each connection
+				will result in a new SSL session.
+			    VERIFY_CRL
+				Verify CRL lists when accepting client
+				certificates.
+			    VERIFY_CRL_ALL
+				Verify CRL lists for all certificates in the
+				client certificate chain.
+
+	   sslcontext=	SSL session ID context identifier.
+
+	   vport	Accelerator with IP based virtual host support.
+
+	   vport=NN	As above, but uses specified port number rather
+			than the https_port number. Implies accel.
+
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_https_port">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_https_port">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

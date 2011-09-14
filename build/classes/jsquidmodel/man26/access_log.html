@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: access_log</title>
+    <meta name="keywords" content="squid squid.conf config configure access_log" />
+    <meta name="description" content="Squid 2.6.STABLE18  access_log " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_access_log">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_access_log">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="access_log">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="access_log">access_log</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias">cache_access_log</td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+access_log /usr/local/squid/var/logs/access.log squid
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	These files log client request activities. Has a line every HTTP or
+	ICP request. The format is:
+	access_log &lt;filepath&gt; [&lt;logformat name&gt; [acl acl ...]]
+	access_log none [acl acl ...]]
+
+	Will log to the specified file using the specified format (which
+	must be defined in a logformat directive) those entries which match
+	ALL the acl's specified (which must be defined in acl clauses).
+	If no acl is specified, all requests will be logged to this file.
+
+	To disable logging of a request use the filepath "none", in which case
+	a logformat name should not be specified.
+
+	To log the request via syslog specify a filepath of "syslog":
+
+	access_log syslog[:facility.priority] [format [acl1 [acl2 ....]]]
+	where facility could be any of:
+	authpriv, daemon, local0 .. local7 or user.
+
+	And priority could be any of:
+	err, warning, notice, info, debug.
+
+	Note: 2.6.STABLE14 and earlier only supports a slightly different
+	and undocumented format with all uppercase LOG_FACILITY|LOG_PRIORITY
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_access_log">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_access_log">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

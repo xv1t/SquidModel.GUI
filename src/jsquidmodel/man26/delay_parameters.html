@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: delay_parameters</title>
+    <meta name="keywords" content="squid squid.conf config configure delay_parameters" />
+    <meta name="description" content="Squid 2.6.STABLE18  delay_parameters " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_delay_parameters">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_delay_parameters">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="delay_parameters">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="delay_parameters">delay_parameters</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires">--enable-delay-pools</td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	This defines the parameters for a delay pool.  Each delay pool has
+	a number of "buckets" associated with it, as explained in the
+	description of delay_class.  For a class 1 delay pool, the syntax is:
+
+delay_parameters pool aggregate
+
+	For a class 2 delay pool:
+
+delay_parameters pool aggregate individual
+
+	For a class 3 delay pool:
+
+delay_parameters pool aggregate network individual
+
+	The variables here are:
+
+		pool		a pool number - ie, a number between 1 and the
+				number specified in delay_pools as used in
+				delay_class lines.
+
+		aggregate	the "delay parameters" for the aggregate bucket
+				(class 1, 2, 3).
+
+		individual	the "delay parameters" for the individual
+				buckets (class 2, 3).
+
+		network		the "delay parameters" for the network buckets
+				(class 3).
+
+	A pair of delay parameters is written restore/maximum, where restore is
+	the number of bytes (not bits - modem and network speeds are usually
+	quoted in bits) per second placed into the bucket, and maximum is the
+	maximum number of bytes which can be in the bucket at any time.
+
+	For example, if delay pool number 1 is a class 2 delay pool as in the
+	above example, and is being used to strictly limit each host to 64kbps
+	(plus overheads), with no overall limit, the line is:
+
+delay_parameters 1 -1/-1 8000/8000
+
+	Note that the figure -1 is used to represent "unlimited".
+
+	And, if delay pool number 2 is a class 3 delay pool as in the above
+	example, and you want to limit it to a total of 256kbps (strict limit)
+	with each 8-bit network permitted 64kbps (strict limit) and each
+	individual host permitted 4800bps with a bucket maximum size of 64kb
+	to permit a decent web page to be downloaded at a decent speed
+	(if the network is not being limited due to overuse) but slow down
+	large downloads more significantly:
+
+delay_parameters 2 32000/32000 8000/8000 600/8000
+
+	There must be one delay_parameters line for each delay pool.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_delay_parameters">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_delay_parameters">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

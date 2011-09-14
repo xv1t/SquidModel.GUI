@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: broken_vary_encoding</title>
+    <meta name="keywords" content="squid squid.conf config configure broken_vary_encoding" />
+    <meta name="description" content="Squid 2.6.STABLE18  broken_vary_encoding " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_broken_vary_encoding">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_broken_vary_encoding">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="broken_vary_encoding">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="broken_vary_encoding">broken_vary_encoding</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+# Apache mod_gzip and mod_deflate known to be broken so don't trust
+# Apache to signal ETag correctly on such responses
+acl apache rep_header Server ^Apache
+broken_vary_encoding allow apache
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Many servers have broken support for on-the-fly Content-Encoding,
+	returning the same ETag on both plain and gzip:ed variants.
+	Vary replies matching this access list will have the cache split
+	on the Accept-Encoding header of the request and not trusting the
+	ETag to be unique.
+
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_broken_vary_encoding">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_broken_vary_encoding">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

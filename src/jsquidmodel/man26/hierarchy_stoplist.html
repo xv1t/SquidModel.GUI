@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: hierarchy_stoplist</title>
+    <meta name="keywords" content="squid squid.conf config configure hierarchy_stoplist" />
+    <meta name="description" content="Squid 2.6.STABLE18  hierarchy_stoplist " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_hierarchy_stoplist">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_hierarchy_stoplist">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="hierarchy_stoplist">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="hierarchy_stoplist">hierarchy_stoplist</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+#We recommend you to use at least the following line.
+hierarchy_stoplist cgi-bin ?
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	A list of words which, if found in a URL, cause the object to
+	be handled directly by this cache.  In other words, use this
+	to not query neighbor caches for certain objects.  You may
+	list this option multiple times. Note: never_direct overrides
+	this option.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_hierarchy_stoplist">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_hierarchy_stoplist">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

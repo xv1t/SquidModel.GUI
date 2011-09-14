@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: reply_body_max_size</title>
+    <meta name="keywords" content="squid squid.conf config configure reply_body_max_size" />
+    <meta name="description" content="Squid 2.6.STABLE18  reply_body_max_size " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_reply_body_max_size">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_reply_body_max_size">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="reply_body_max_size">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="reply_body_max_size">reply_body_max_size</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	This option specifies the maximum size of a reply body in bytes.
+	It can be used to prevent users from downloading very large files,
+	such as MP3's and movies. When the reply headers are received,
+	the reply_body_max_size lines are processed, and the first line with
+	a result of "allow" is used as the maximum body size for this reply.
+	This size is checked twice. First when we get the reply headers,
+	we check the content-length value.  If the content length value exists
+	and is larger than the allowed size, the request is denied and the
+	user receives an error message that says "the request or reply
+	is too large." If there is no content-length, and the reply
+	size exceeds this limit, the client's connection is just closed
+	and they will receive a partial reply.
+
+	WARNING: downstream caches probably can not detect a partial reply
+	if there is no content-length header, so they will cache
+	partial responses and give them out as hits.  You should NOT
+	use this option if you have downstream caches.
+
+	If you set this parameter to zero (the default), there will be
+	no limit imposed.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_reply_body_max_size">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_reply_body_max_size">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

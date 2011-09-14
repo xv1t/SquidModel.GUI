@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: cache</title>
+    <meta name="keywords" content="squid squid.conf config configure cache" />
+    <meta name="description" content="Squid 2.6.STABLE18  cache " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_cache">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_cache">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="cache">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="cache">cache</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias">no_cache</td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+#We recommend you to use the following two lines.
+acl QUERY urlpath_regex cgi-bin \?
+cache deny QUERY
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	A list of ACL elements which, if matched, cause the request to
+	not be satisfied from the cache and the reply to not be cached.
+	In other words, use this to force certain objects to never be cached.
+
+	You must use the word 'DENY' to indicate the ACL names which should
+	NOT be cached.
+
+	Default is to allow all to be cached
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_cache">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_cache">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

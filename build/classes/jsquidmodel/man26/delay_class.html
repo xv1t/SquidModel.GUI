@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: delay_class</title>
+    <meta name="keywords" content="squid squid.conf config configure delay_class" />
+    <meta name="description" content="Squid 2.6.STABLE18  delay_class " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_delay_class">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_delay_class">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="delay_class">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="delay_class">delay_class</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires">--enable-delay-pools</td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	This defines the class of each delay pool.  There must be exactly one
+	delay_class line for each delay pool.  For example, to define two
+	delay pools, one of class 2 and one of class 3, the settings above
+	and here would be:
+
+Example:
+ delay_pools 2      # 2 delay pools
+ delay_class 1 2    # pool 1 is a class 2 pool
+ delay_class 2 3    # pool 2 is a class 3 pool
+
+	The delay pool classes are:
+
+		class 1		Everything is limited by a single aggregate
+				bucket.
+
+		class 2 	Everything is limited by a single aggregate
+				bucket as well as an "individual" bucket chosen
+				from bits 25 through 32 of the IP address.
+
+		class 3		Everything is limited by a single aggregate
+				bucket as well as a "network" bucket chosen
+				from bits 17 through 24 of the IP address and a
+				"individual" bucket chosen from bits 17 through
+				32 of the IP address.
+
+	NOTE: If an IP address is a.b.c.d
+		-&gt; bits 25 through 32 are "d"
+		-&gt; bits 17 through 24 are "c"
+		-&gt; bits 17 through 32 are "c * 256 + d"
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_delay_class">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_delay_class">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: wccp2_service_info</title>
+    <meta name="keywords" content="squid squid.conf config configure wccp2_service_info" />
+    <meta name="description" content="Squid 2.6.STABLE18  wccp2_service_info " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_wccp2_service_info">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_wccp2_service_info">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="wccp2_service_info">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="wccp2_service_info">wccp2_service_info</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires">--enable-wccpv2</td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Dynamic WCCPv2 services require further information to define the
+	traffic you wish to have diverted.
+
+	The format is:
+
+	wccp2_service_info &lt;id&gt; protocol=&lt;protocol&gt; flags=&lt;flag&gt;,&lt;flag&gt;..
+	    priority=&lt;priority&gt; ports=&lt;port&gt;,&lt;port&gt;..
+
+	The relevant WCCPv2 flags:
+	+ src_ip_hash, dst_ip_hash
+	+ source_port_hash, dest_port_hash
+	+ src_ip_alt_hash, dst_ip_alt_hash
+	+ src_port_alt_hash, dst_port_alt_hash
+	+ ports_source
+
+	The port list can be one to eight entries.
+
+	Example:
+
+	wccp2_service_info 80 protocol=tcp flags=src_ip_hash,ports_source
+	    priority=240 ports=80
+
+	Note: the service id must have been defined by a previous
+	'wccp2_service dynamic &lt;id&gt;' entry.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_wccp2_service_info">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_wccp2_service_info">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

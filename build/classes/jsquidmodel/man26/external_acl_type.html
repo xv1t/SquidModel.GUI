@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: external_acl_type</title>
+    <meta name="keywords" content="squid squid.conf config configure external_acl_type" />
+    <meta name="description" content="Squid 2.6.STABLE18  external_acl_type " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_external_acl_type">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_external_acl_type">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="external_acl_type">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="external_acl_type">external_acl_type</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	This option defines external acl classes using a helper program to
+	look up the status
+
+	  external_acl_type name [options] FORMAT.. /path/to/helper [helper arguments..]
+
+	Options:
+
+	  ttl=n		TTL in seconds for cached results (defaults to 3600
+			for 1 hour)
+	  negative_ttl=n
+			TTL for cached negative lookups (default same
+			as ttl)
+	  children=n	number of processes spawn to service external acl
+			lookups of this type. (default 5).
+	  concurrency=n	concurrency level per process. Only used with helpers
+	  		capable of processing more than one query at a time.
+			Note: see compatibility note below
+	  cache=n	result cache size, 0 is unbounded (default)
+	  grace=	Percentage remaining of TTL where a refresh of a
+			cached entry should be initiated without needing to
+			wait for a new reply. (default 0 for no grace period)
+	  protocol=2.5  Compatibility mode for Squid-2.5 external acl helpers
+
+	FORMAT specifications
+
+	  %LOGIN	Authenticated user login name
+	  %EXT_USER	Username from external acl
+	  %IDENT	Ident user name
+	  %SRC		Client IP
+	  %SRCPORT	Client source port
+	  %DST		Requested host
+	  %PROTO	Requested protocol
+	  %PORT		Requested port
+	  %METHOD	Request method
+	  %MYADDR	Squid interface address
+	  %MYPORT	Squid http_port number
+	  %PATH		Requested URL-path (including query-string if any)
+	  %USER_CERT	SSL User certificate in PEM format
+	  %USER_CERTCHAIN SSL User certificate chain in PEM format
+	  %USER_CERT_xx	SSL User certificate subject attribute xx
+	  %USER_CA_xx	SSL User certificate issuer attribute xx
+	  %{Header}	HTTP request header
+	  %{Hdr:member}	HTTP request header list member
+	  %{Hdr:;member}
+			HTTP request header list member using ; as
+			list separator. ; can be any non-alphanumeric
+			character.
+	 %ACL		The ACL name
+	 %DATA		The ACL arguments. If not used then any arguments
+			is automatically added at the end
+
+	In addition to the above, any string specified in the referencing
+	acl will also be included in the helper request line, after the
+	specified formats (see the "acl external" directive)
+
+	The helper receives lines per the above format specification,
+	and returns lines starting with OK or ERR indicating the validity
+	of the request and optionally followed by additional keywords with
+	more details.
+
+	General result syntax:
+
+	  OK/ERR keyword=value ...
+
+	Defined keywords:
+
+	  user=		The users name (login also understood)
+	  password=	The users password (for PROXYPASS login= cache_peer)
+	  message=	Error message or similar used as %o in error messages
+			(error also understood)
+	  log=		String to be logged in access.log. Available as
+			%ea in logformat specifications
+
+	If protocol=3.0 (the default) then URL escaping is used to protect
+	each value in both requests and responses.
+
+	If using protocol=2.5 then all values need to be enclosed in quotes
+	if they may contain whitespace, or the whitespace escaped using \.
+	And quotes or \ characters within the keyword value must be \ escaped.
+
+	When using the concurrency= option the protocol is changed by
+	introducing a query channel tag infront of the request/response.
+	The query channel tag is a number between 0 and concurrency-1.
+
+	Compatibility Note: The children= option was named concurrency= in
+	Squid-2.5.STABLE3 and earlier, and was accepted as an alias for the
+	duration of the Squid-2.5 releases to keep compatibility. However,
+	the meaning of concurrency= option has changed in Squid-2.6 to match
+	that of Squid-3 and the old syntax no longer works.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_external_acl_type">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_external_acl_type">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

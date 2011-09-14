@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: http_access</title>
+    <meta name="keywords" content="squid squid.conf config configure http_access" />
+    <meta name="description" content="Squid 2.6.STABLE18  http_access " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_http_access">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_http_access">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="http_access">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="http_access">http_access</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+#Recommended minimum configuration:
+#
+# Only allow cachemgr access from localhost
+http_access allow manager localhost
+http_access deny manager
+# Deny requests to unknown ports
+http_access deny !Safe_ports
+# Deny CONNECT to other than SSL ports
+http_access deny CONNECT !SSL_ports
+#
+# We strongly recommend the following be uncommented to protect innocent
+# web applications running on the proxy server who think the only
+# one who can access services on "localhost" is a local user
+#http_access deny to_localhost
+#
+# INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS
+
+# Example rule allowing access from your local networks. Adapt
+# to list your (internal) IP networks from where browsing should
+# be allowed
+#acl our_networks src 192.168.1.0/24 192.168.2.0/24
+#http_access allow our_networks
+
+# And finally deny all other access to this proxy
+http_access deny all
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Allowing or Denying access based on defined access lists
+
+	Access to the HTTP port:
+	http_access allow|deny [!]aclname ...
+
+	NOTE on default values:
+
+	If there are no "access" lines present, the default is to deny
+	the request.
+
+	If none of the "access" lines cause a match, the default is the
+	opposite of the last line in the list.  If the last line was
+	deny, the default is allow.  Conversely, if the last line
+	is allow, the default will be deny.  For these reasons, it is a
+	good idea to have an "deny all" or "allow all" entry at the end
+	of your access lists to avoid potential confusion.
+
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_http_access">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_http_access">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

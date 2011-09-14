@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: range_offset_limit</title>
+    <meta name="keywords" content="squid squid.conf config configure range_offset_limit" />
+    <meta name="description" content="Squid 2.6.STABLE18  range_offset_limit " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_range_offset_limit">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_range_offset_limit">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="range_offset_limit">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="range_offset_limit">range_offset_limit</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">range_offset_limit 0 KB</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Sets a upper limit on how far into the the file a Range request
+	may be to cause Squid to prefetch the whole file. If beyond this
+	limit Squid forwards the Range request as it is and the result
+	is NOT cached.
+
+	This is to stop a far ahead range request (lets say start at 17MB)
+	from making Squid fetch the whole object up to that point before
+	sending anything to the client.
+
+	A value of -1 causes Squid to always fetch the object from the
+	beginning so it may cache the result. (2.0 style)
+
+	A value of 0 causes Squid to never fetch more than the
+	client requested. (default)
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_range_offset_limit">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_range_offset_limit">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

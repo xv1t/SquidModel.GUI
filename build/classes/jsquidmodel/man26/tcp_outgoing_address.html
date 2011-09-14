@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: tcp_outgoing_address</title>
+    <meta name="keywords" content="squid squid.conf config configure tcp_outgoing_address" />
+    <meta name="description" content="Squid 2.6.STABLE18  tcp_outgoing_address " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_tcp_outgoing_address">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_tcp_outgoing_address">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="tcp_outgoing_address">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="tcp_outgoing_address">tcp_outgoing_address</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Allows you to map requests to different outgoing IP addresses
+	based on the username or source address of the user making
+	the request.
+
+	tcp_outgoing_address ipaddr [[!]aclname] ...
+
+	Example where requests from 10.0.0.0/24 will be forwarded
+	with source address 10.1.0.1, 10.0.2.0/24 forwarded with
+	source address 10.1.0.2 and the rest will be forwarded with
+	source address 10.1.0.3.
+
+	acl normal_service_net src 10.0.0.0/24
+	acl good_service_net src 10.0.1.0/24 10.0.2.0/24
+	tcp_outgoing_address 10.1.0.1 normal_service_net
+	tcp_outgoing_address 10.1.0.2 good_service_net
+	tcp_outgoing_address 10.1.0.3
+
+	Processing proceeds in the order specified, and stops at first fully
+	matching line.
+
+	Note: The use of this directive using client dependent ACLs is
+	incompatible with the use of server side persistent connections. To
+	ensure correct results it is best to set server_persistent_connections
+	to off when using this directive in such configurations.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_tcp_outgoing_address">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_tcp_outgoing_address">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: cachemgr_passwd</title>
+    <meta name="keywords" content="squid squid.conf config configure cachemgr_passwd" />
+    <meta name="description" content="Squid 2.6.STABLE18  cachemgr_passwd " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_cachemgr_passwd">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_cachemgr_passwd">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="cachemgr_passwd">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="cachemgr_passwd">cachemgr_passwd</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Specify passwords for cachemgr operations.
+
+	Usage: cachemgr_passwd password action action ...
+
+	Some valid actions are (see cache manager menu for a full list):
+		5min
+		60min
+		asndb
+		authenticator
+		cbdata
+		client_list
+		comm_incoming
+		config *
+		counters
+		delay
+		digest_stats
+		dns
+		events
+		filedescriptors
+		fqdncache
+		histograms
+		http_headers
+		info
+		io
+		ipcache
+		mem
+		menu
+		netdb
+		non_peers
+		objects
+		offline_toggle *
+		pconn
+		peer_select
+		redirector
+		refresh
+		server_list
+		shutdown *
+		store_digest
+		storedir
+		utilization
+		via_headers
+		vm_objects
+
+	* Indicates actions which will not be performed without a
+	  valid password, others can be performed if not listed here.
+
+	To disable an action, set the password to "disable".
+	To allow performing an action without a password, set the
+	password to "none".
+
+	Use the keyword "all" to set the same password for all actions.
+
+Example:
+ cachemgr_passwd secret shutdown
+ cachemgr_passwd lesssssssecret info stats/objects
+ cachemgr_passwd disable all
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_cachemgr_passwd">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_cachemgr_passwd">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

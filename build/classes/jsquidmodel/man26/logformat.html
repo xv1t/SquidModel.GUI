@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: logformat</title>
+    <meta name="keywords" content="squid squid.conf config configure logformat" />
+    <meta name="description" content="Squid 2.6.STABLE18  logformat " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_logformat">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_logformat">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="logformat">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="logformat">logformat</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Usage:
+
+	logformat &lt;name&gt; &lt;format specification&gt;
+
+	Defines an access log format.
+
+	The &lt;format specification&gt; is a string with embedded % format codes
+
+	% format codes all follow the same basic structure where all but
+	the formatcode is optional. Output strings are automatically escaped
+	as required according to their context and the output format
+	modifiers are usually not needed, but can be specified if an explicit
+	output format is desired.
+
+		% ["|[|'|#] [-] [[0]width] [{argument}] formatcode
+
+		"	output in quoted string format
+		[	output in squid text log format as used by log_mime_hdrs
+		#	output in URL quoted format
+		'	output as-is
+
+		-	left aligned
+		width	field width. If starting with 0 the
+			output is zero padded
+		{arg}	argument such as header name etc
+
+	Format codes:
+
+		&gt;a	Client source IP address
+		&gt;A	Client FQDN
+		&gt;p	Client source port
+		&lt;A	Server IP address or peer name
+		la	Local IP address (http_port)
+		lp	Local port number (http_port)
+		ts	Seconds since epoch
+		tu	subsecond time (milliseconds)
+		tl	Local time. Optional strftime format argument
+			default %d/%b/%Y:%H:%M:%S %z
+		tg	GMT time. Optional strftime format argument
+			default %d/%b/%Y:%H:%M:%S %z
+		tr	Response time (milliseconds)
+		&gt;h	Request header. Optional header name argument
+			on the format header[:[separator]element]
+		&lt;h	Reply header. Optional header name argument
+			as for &gt;h
+		un	User name
+		ul	User name from authentication
+		ui	User name from ident
+		us	User name from SSL
+		ue	User name from external acl helper
+		Hs	HTTP status code
+		Ss	Squid request status (TCP_MISS etc)
+		Sh	Squid hierarchy status (DEFAULT_PARENT etc)
+		mt	MIME content type
+		rm	Request method (GET/POST etc)
+		ru	Request URL
+		rv	Request protocol version
+		ea	Log string returned by external acl
+		&lt;st	Reply size including HTTP headers
+		&gt;st	Request size including HTTP headers
+		st	Request+Reply size including HTTP headers
+		%	a literal % character
+
+logformat squid  %ts.%03tu %6tr %&gt;a %Ss/%03Hs %&lt;st %rm %ru %un %Sh/%&lt;A %mt
+logformat squidmime  %ts.%03tu %6tr %&gt;a %Ss/%03Hs %&lt;st %rm %ru %un %Sh/%&lt;A %mt [%&gt;h] [%&lt;h]
+logformat common %&gt;a %ui %un [%tl] "%rm %ru HTTP/%rv" %Hs %&lt;st %Ss:%Sh
+logformat combined %&gt;a %ui %un [%tl] "%rm %ru HTTP/%rv" %Hs %&lt;st "%{Referer}&gt;h" "%{User-Agent}&gt;h" %Ss:%Sh
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_logformat">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_logformat">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: follow_x_forwarded_for</title>
+    <meta name="keywords" content="squid squid.conf config configure follow_x_forwarded_for" />
+    <meta name="description" content="Squid 2.6.STABLE18  follow_x_forwarded_for " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_follow_x_forwarded_for">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_follow_x_forwarded_for">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="follow_x_forwarded_for">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="follow_x_forwarded_for">follow_x_forwarded_for</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires">FOLLOW_X_FORWARDED_FOR</td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Allowing or Denying the X-Forwarded-For header to be followed to
+	find the original source of a request.
+
+	Requests may pass through a chain of several other proxies
+	before reaching us.  The X-Forwarded-For header will contain a
+	comma-separated list of the IP addresses in the chain, with the
+	rightmost address being the most recent.
+
+	If a request reaches us from a source that is allowed by this
+	configuration item, then we consult the X-Forwarded-For header
+	to see where that host received the request from.  If the
+	X-Forwarded-For header contains multiple addresses, and if
+	acl_uses_indirect_client is on, then we continue backtracking
+	until we reach an address for which we are not allowed to
+	follow the X-Forwarded-For header, or until we reach the first
+	address in the list.  (If acl_uses_indirect_client is off, then
+	it's impossible to backtrack through more than one level of
+	X-Forwarded-For addresses.)
+
+	The end result of this process is an IP address that we will
+	refer to as the indirect client address.  This address may
+	be treated as the client address for access control, delay
+	pools and logging, depending on the acl_uses_indirect_client,
+	delay_pool_uses_indirect_client and log_uses_indirect_client
+	options.
+
+	SECURITY CONSIDERATIONS:
+
+		Any host for which we follow the X-Forwarded-For header
+		can place incorrect information in the header, and Squid
+		will use the incorrect information as if it were the
+		source address of the request.  This may enable remote
+		hosts to bypass any access control restrictions that are
+		based on the client's source addresses.
+
+	For example:
+
+		acl localhost src 127.0.0.1
+		acl my_other_proxy srcdomain .proxy.example.com
+		follow_x_forwarded_for allow localhost
+		follow_x_forwarded_for allow my_other_proxy
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_follow_x_forwarded_for">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_follow_x_forwarded_for">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

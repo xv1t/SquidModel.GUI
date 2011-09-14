@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: quick_abort_pct</title>
+    <meta name="keywords" content="squid squid.conf config configure quick_abort_pct" />
+    <meta name="description" content="Squid 2.6.STABLE18  quick_abort_pct " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_quick_abort_pct">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_quick_abort_pct">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="quick_abort_pct">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="quick_abort_pct">quick_abort_pct</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">quick_abort_pct 95</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	The cache by default continues downloading aborted requests
+	which are almost completed (less than 16 KB remaining). This
+	may be undesirable on slow (e.g. SLIP) links and/or very busy
+	caches.  Impatient users may tie up file descriptors and
+	bandwidth by repeatedly requesting and immediately aborting
+	downloads.
+
+	When the user aborts a request, Squid will check the
+	quick_abort values to the amount of data transfered until
+	then.
+
+	If the transfer has less than 'quick_abort_min' KB remaining,
+	it will finish the retrieval.
+
+	If the transfer has more than 'quick_abort_max' KB remaining,
+	it will abort the retrieval.
+
+	If more than 'quick_abort_pct' of the transfer has completed,
+	it will finish the retrieval.
+
+	If you do not want any retrieval to continue after the client
+	has aborted, set both 'quick_abort_min' and 'quick_abort_max'
+	to '0 KB'.
+
+	If you want retrievals to always continue if they are being
+	cached set 'quick_abort_min' to '-1 KB'.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_quick_abort_pct">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_quick_abort_pct">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

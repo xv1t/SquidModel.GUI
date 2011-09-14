@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: cache_peer</title>
+    <meta name="keywords" content="squid squid.conf config configure cache_peer" />
+    <meta name="description" content="Squid 2.6.STABLE18  cache_peer " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_cache_peer">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_cache_peer">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="cache_peer">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="cache_peer">cache_peer</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	To specify other caches in a hierarchy, use the format:
+
+		cache_peer hostname type http-port icp-port [options]
+
+	For example,
+
+	#                                        proxy  icp
+	#          hostname             type     port   port  options
+	#          -------------------- -------- ----- -----  -----------
+	cache_peer parent.foo.net       parent    3128  3130  proxy-only default
+	cache_peer sib1.foo.net         sibling   3128  3130  proxy-only
+	cache_peer sib2.foo.net         sibling   3128  3130  proxy-only
+
+	      type:  either 'parent', 'sibling', or 'multicast'.
+
+	proxy-port:  The port number where the cache listens for proxy
+		     requests.
+
+	  icp-port:  Used for querying neighbor caches about
+		     objects.  To have a non-ICP neighbor
+		     specify '7' for the ICP port and make sure the
+		     neighbor machine has the UDP echo port
+		     enabled in its /etc/inetd.conf file.
+		NOTE: Also requires icp_port option enabled to send/receive
+		      requests via this method.
+
+	    options: proxy-only
+		     weight=n
+		     ttl=n
+		     no-query
+		     default
+		     round-robin
+		     carp
+		     multicast-responder
+		     closest-only
+		     no-digest
+		     no-netdb-exchange
+		     no-delay
+		     login=user:password | PASS | *:password
+		     connect-timeout=nn
+		     digest-url=url
+		     allow-miss
+		     max-conn=n
+		     htcp
+		     htcp-oldsquid
+		     originserver
+		     userhash
+		     sourcehash
+		     name=xxx
+		     monitorurl=url
+		     monitorsize=sizespec
+		     monitorinterval=seconds
+		     monitortimeout=seconds
+		     forceddomain=name
+		     ssl
+		     sslcert=/path/to/ssl/certificate
+		     sslkey=/path/to/ssl/key
+		     sslversion=1|2|3|4
+		     sslcipher=...
+		     ssloptions=...
+		     front-end-https[=on|auto]
+		     connection-auth[=on|off|auto]
+
+		     use 'proxy-only' to specify objects fetched
+		     from this cache should not be saved locally.
+
+		     use 'weight=n' to affect the selection of a peer
+		     during any weighted peer-selection mechanisms.
+		     The weight must be an integer; default is 1,
+		     larger weights are favored more.
+		     This option does not affect parent selection if a peering
+		     protocol is not in use.
+
+		     use 'ttl=n' to specify a IP multicast TTL to use
+		     when sending an ICP queries to this address.
+		     Only useful when sending to a multicast group.
+		     Because we don't accept ICP replies from random
+		     hosts, you must configure other group members as
+		     peers with the 'multicast-responder' option below.
+
+		     use 'no-query' to NOT send ICP queries to this
+		     neighbor.
+
+		     use 'default' if this is a parent cache which can
+		     be used as a "last-resort" if a peer cannot be located
+		     by any of the peer-selection mechanisms.
+		     If specified more than once, only the first is used.
+
+		     use 'round-robin' to define a set of parents which
+		     should be used in a round-robin fashion in the
+		     absence of any ICP queries.
+
+		     use 'carp' to define a set of parents which should
+		     be used as a CARP array. The requests will be
+		     distributed among the parents based on the CARP load
+		     balancing hash function based on their weight.
+
+		     'multicast-responder' indicates the named peer
+		     is a member of a multicast group.  ICP queries will
+		     not be sent directly to the peer, but ICP replies
+		     will be accepted from it.
+
+		     'closest-only' indicates that, for ICP_OP_MISS
+		     replies, we'll only forward CLOSEST_PARENT_MISSes
+		     and never FIRST_PARENT_MISSes.
+
+		     use 'no-digest' to NOT request cache digests from
+		     this neighbor.
+
+		     'no-netdb-exchange' disables requesting ICMP
+		     RTT database (NetDB) from the neighbor.
+
+		     use 'no-delay' to prevent access to this neighbor
+		     from influencing the delay pools.
+
+		     use 'login=user:password' if this is a personal/workgroup
+		     proxy and your parent requires proxy authentication.
+		     Note: The string can include URL escapes (i.e. %20 for
+		     spaces). This also means % must be written as %%.
+
+		     use 'login=PASS' if users must authenticate against
+		     the upstream proxy or in the case of a reverse proxy
+		     configuration, the origin web server.  This will pass
+		     the users credentials as they are to the peer.
+		     Note: To combine this with local authentication the Basic
+		     authentication scheme must be used, and both servers must
+		     share the same user database as HTTP only allows for
+		     a single login (one for proxy, one for origin server).
+		     Also be warned this will expose your users proxy
+		     password to the peer. USE WITH CAUTION
+
+		     use 'login=*:password' to pass the username to the
+		     upstream cache, but with a fixed password. This is meant
+		     to be used when the peer is in another administrative
+		     domain, but it is still needed to identify each user.
+		     The star can optionally be followed by some extra
+		     information which is added to the username. This can
+		     be used to identify this proxy to the peer, similar to
+		     the login=username:password option above.
+
+		     use 'connect-timeout=nn' to specify a peer
+		     specific connect timeout (also see the
+		     peer_connect_timeout directive)
+
+		     use 'digest-url=url' to tell Squid to fetch the cache
+		     digest (if digests are enabled) for this host from
+		     the specified URL rather than the Squid default
+		     location.
+
+		     use 'allow-miss' to disable Squid's use of only-if-cached
+		     when forwarding requests to siblings. This is primarily
+		     useful when icp_hit_stale is used by the sibling. To
+		     extensive use of this option may result in forwarding
+		     loops, and you should avoid having two-way peerings
+		     with this option. (for example to deny peer usage on
+		     requests from peer by denying cache_peer_access if the
+		     source is a peer)
+
+		     use 'max-conn=n' to limit the amount of connections Squid
+		     may open to this peer.
+
+		     use 'htcp' to send HTCP, instead of ICP, queries
+		     to the neighbor.  You probably also want to
+		     set the "icp port" to 4827 instead of 3130.
+		     You must also allow this Squid htcp_access and
+		     http_access in the peer Squid configuration.
+
+		     use 'htcp-oldsquid' to send HTCP to old Squid versions
+		     You must also allow this Squid htcp_access and
+		     http_access in the peer Squid configuration.
+
+		     'originserver' causes this parent peer to be contacted as
+		     a origin server. Meant to be used in accelerator setups.
+
+		     use 'userhash' to load-balance amongst a set of parents
+		     based on the client proxy_auth or ident username.
+
+		     use 'sourcehash' to load-balance amongst a set of parents
+		     based on the client source ip.
+
+		     use 'name=xxx' if you have multiple peers on the same
+		     host but different ports. This name can be used to
+		     differentiate the peers in cache_peer_access and similar
+		     directives.
+
+		     use 'monitorurl=url' to have periodically request a given
+		     URL from the peer, and only consider the peer as alive
+		     if this monitoring is successful (default none)
+
+		     use 'monitorsize=min[-max]' to limit the size range of
+		     'monitorurl' replies considered valid. Defaults to 0 to
+		     accept any size replies as valid.
+
+		     use 'monitorinterval=seconds' to change frequency of
+		     how often the peer is monitored with 'monitorurl'
+		     (default 300 for a 5 minute interval). If set to 0
+		     then monitoring is disabled even if a URL is defined.
+
+		     use 'monitortimeout=seconds' to change the timeout of
+		     'monitorurl'. Defaults to 'monitorinterval'.
+
+		     use 'forceddomain=name' to forcibly set the Host header
+		     of requests forwarded to this peer. Useful in accelerator
+		     setups where the server (peer) expects a certain domain
+		     name and using redirectors to feed this domain name
+		     is not feasible.
+
+		     use 'ssl' to indicate connections to this peer should
+		     be SSL/TLS encrypted.
+
+		     use 'sslcert=/path/to/ssl/certificate' to specify a client
+		     SSL certificate to use when connecting to this peer.
+
+		     use 'sslkey=/path/to/ssl/key' to specify the private SSL
+		     key corresponding to sslcert above. If 'sslkey' is not
+		     specified 'sslcert' is assumed to reference a
+		     combined file containing both the certificate and the key.
+
+		     use sslversion=1|2|3|4 to specify the SSL version to use
+		     when connecting to this peer
+			1 = automatic (default)
+			2 = SSL v2 only
+			3 = SSL v3 only
+			4 = TLS v1 only
+
+		     use sslcipher=... to specify the list of valid SSL ciphers
+		     to use when connecting to this peer.
+
+		     use ssloptions=... to specify various SSL engine options:
+			NO_SSLv2  Disallow the use of SSLv2
+			NO_SSLv3  Disallow the use of SSLv3
+			NO_TLSv1  Disallow the use of TLSv1
+		     See src/ssl_support.c or the OpenSSL documentation for
+		     a more complete list.
+
+		     use sslcafile=... to specify a file containing
+		     additional CA certificates to use when verifying the
+		     peer certificate.
+
+		     use sslcapath=... to specify a directory containing
+		     additional CA certificates to use when verifying the
+		     peer certificate.
+
+		     use sslcrlfile=... to specify a certificate revocation
+		     list file to use when verifying the peer certificate.
+
+		     use sslflags=... to specify various flags modifying the
+		     SSL implementation:
+			DONT_VERIFY_PEER
+				Accept certificates even if they fail to
+				verify.
+			NO_DEFAULT_CA
+				Don't use the default CA list built in
+				to OpenSSL.
+
+		     use ssldomain= to specify the peer name as advertised
+		     in it's certificate. Used for verifying the correctness
+		     of the received peer certificate. If not specified the
+		     peer hostname will be used.
+
+		     use front-end-https to enable the "Front-End-Https: On"
+		     header needed when using Squid as a SSL frontend in front
+		     of Microsoft OWA. See MS KB document Q307347 for details
+		     on this header. If set to auto the header will
+		     only be added if the request is forwarded as a https://
+		     URL.
+
+		     use connection-auth=off to tell Squid that this peer does
+		     not support Microsoft connection oriented authentication,
+		     and any such challenges received from there should be
+		     ignored. Default is auto to automatically determine the
+		     status of the peer.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_cache_peer">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_cache_peer">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

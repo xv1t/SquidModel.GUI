@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: reload_into_ims</title>
+    <meta name="keywords" content="squid squid.conf config configure reload_into_ims" />
+    <meta name="description" content="Squid 2.6.STABLE18  reload_into_ims " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_reload_into_ims">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_reload_into_ims">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="reload_into_ims">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="reload_into_ims">reload_into_ims</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires">--enable-http-violations</td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">reload_into_ims off</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	When you enable this option, client no-cache or ``reload''
+	requests will be changed to If-Modified-Since requests.
+	Doing this VIOLATES the HTTP standard.  Enabling this
+	feature could make you liable for problems which it
+	causes.
+
+	see also refresh_pattern for a more selective approach.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_reload_into_ims">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_reload_into_ims">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

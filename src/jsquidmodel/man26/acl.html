@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: acl</title>
+    <meta name="keywords" content="squid squid.conf config configure acl" />
+    <meta name="description" content="Squid 2.6.STABLE18  acl " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_acl">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_acl">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="acl">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="acl">acl</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+#Recommended minimum configuration:
+acl all src 0.0.0.0/0.0.0.0
+acl manager proto cache_object
+acl localhost src 127.0.0.1/255.255.255.255
+acl to_localhost dst 127.0.0.0/8
+acl SSL_ports port 443
+acl Safe_ports port 80		# http
+acl Safe_ports port 21		# ftp
+acl Safe_ports port 443		# https
+acl Safe_ports port 70		# gopher
+acl Safe_ports port 210		# wais
+acl Safe_ports port 1025-65535	# unregistered ports
+acl Safe_ports port 280		# http-mgmt
+acl Safe_ports port 488		# gss-http
+acl Safe_ports port 591		# filemaker
+acl Safe_ports port 777		# multiling http
+acl CONNECT method CONNECT
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Defining an Access List
+
+	acl aclname acltype string1 ...
+	acl aclname acltype "file" ...
+
+	when using "file", the file should contain one item per line
+
+	acltype is one of the types described below
+
+	By default, regular expressions are CASE-SENSITIVE.  To make
+	them case-insensitive, use the -i option.
+
+	acl aclname src      ip-address/netmask ... (clients IP address)
+	acl aclname src      addr1-addr2/netmask ... (range of addresses)
+	acl aclname dst      ip-address/netmask ... (URL host's IP address)
+	acl aclname myip     ip-address/netmask ... (local socket IP address)
+
+	acl aclname arp      mac-address ... (xx:xx:xx:xx:xx:xx notation)
+	  # The arp ACL requires the special configure option --enable-arp-acl.
+	  # Furthermore, the arp ACL code is not portable to all operating systems.
+	  # It works on Linux, Solaris, FreeBSD and some other *BSD variants.
+	  #
+	  # NOTE: Squid can only determine the MAC address for clients that are on
+	  # the same subnet. If the client is on a different subnet, then Squid cannot
+	  # find out its MAC address.
+
+	acl aclname srcdomain   .foo.com ...    # reverse lookup, client IP
+	acl aclname dstdomain   .foo.com ...    # Destination server from URL
+	acl aclname srcdom_regex [-i] xxx ...   # regex matching client name
+	acl aclname dstdom_regex [-i] xxx ...   # regex matching server
+	  # For dstdomain and dstdom_regex a reverse lookup is tried if a IP
+	  # based URL is used and no match is found. The name "none" is used
+	  # if the reverse lookup fails.
+
+	acl aclname time     [day-abbrevs]  [h1:m1-h2:m2]
+	    day-abbrevs:
+		S - Sunday
+		M - Monday
+		T - Tuesday
+		W - Wednesday
+		H - Thursday
+		F - Friday
+		A - Saturday
+	    h1:m1 must be less than h2:m2
+	acl aclname url_regex [-i] ^http:// ...	# regex matching on whole URL
+	acl aclname urlpath_regex [-i] \.gif$ ...	# regex matching on URL path
+	acl aclname urllogin [-i] [^a-zA-Z0-9] ...	# regex matching on URL login field
+	acl aclname port     80 70 21 ...
+	acl aclname port     0-1024 ...		# ranges allowed
+	acl aclname myport   3128 ...		# (local socket TCP port)
+	acl aclname proto    HTTP FTP ...
+	acl aclname method   GET POST ...
+	acl aclname browser  [-i] regexp ...
+	  # pattern match on User-Agent header (see also req_header below)
+	acl aclname referer_regex  [-i] regexp ...
+	  # pattern match on Referer header
+	  # Referer is highly unreliable, so use with care
+	acl aclname ident    username ...
+	acl aclname ident_regex [-i] pattern ...
+	  # string match on ident output.
+	  # use REQUIRED to accept any non-null ident.
+	acl aclname src_as   number ...
+	acl aclname dst_as   number ...
+	  # Except for access control, AS numbers can be used for
+	  # routing of requests to specific caches. Here's an
+	  # example for routing all requests for AS#1241 and only
+	  # those to mycache.mydomain.net:
+	  # acl asexample dst_as 1241
+	  # cache_peer_access mycache.mydomain.net allow asexample
+	  # cache_peer_access mycache_mydomain.net deny all
+
+	acl aclname proxy_auth [-i] username ...
+	acl aclname proxy_auth_regex [-i] pattern ...
+	  # list of valid usernames
+	  # use REQUIRED to accept any valid username.
+	  #
+	  # NOTE: when a Proxy-Authentication header is sent but it is not
+	  # needed during ACL checking the username is NOT logged
+	  # in access.log.
+	  #
+	  # NOTE: proxy_auth requires a EXTERNAL authentication program
+	  # to check username/password combinations (see
+	  # auth_param directive).
+	  #
+	  # NOTE: proxy_auth can't be used in a transparent proxy as
+	  # the browser needs to be configured for using a proxy in order
+	  # to respond to proxy authentication.
+
+	acl aclname snmp_community string ...
+	  # A community string to limit access to your SNMP Agent
+	  # Example:
+	  #
+	  #	acl snmppublic snmp_community public
+
+	acl aclname maxconn number
+	  # This will be matched when the client's IP address has
+	  # more than &lt;number&gt; HTTP connections established.
+
+	acl aclname max_user_ip [-s] number
+	  # This will be matched when the user attempts to log in from more
+	  # than &lt;number&gt; different ip addresses. The authenticate_ip_ttl
+	  # parameter controls the timeout on the ip entries.
+	  # If -s is specified the limit is strict, denying browsing
+	  # from any further IP addresses until the ttl has expired. Without
+	  # -s Squid will just annoy the user by "randomly" denying requests.
+	  # (the counter is reset each time the limit is reached and a
+	  # request is denied)
+	  # NOTE: in acceleration mode or where there is mesh of child proxies,
+	  # clients may appear to come from multiple addresses if they are
+	  # going through proxy farms, so a limit of 1 may cause user problems.
+
+	acl aclname req_mime_type mime-type1 ...
+	  # regex match against the mime type of the request generated
+	  # by the client. Can be used to detect file upload or some
+	  # types HTTP tunneling requests.
+	  # NOTE: This does NOT match the reply. You cannot use this
+	  # to match the returned file type.
+
+	acl aclname req_header header-name [-i] any\.regex\.here
+	  # regex match against any of the known request headers.  May be
+	  # thought of as a superset of "browser", "referer" and "mime-type"
+	  # ACLs.
+
+	acl aclname rep_mime_type mime-type1 ...
+	  # regex match against the mime type of the reply received by
+	  # squid. Can be used to detect file download or some
+	  # types HTTP tunneling requests.
+	  # NOTE: This has no effect in http_access rules. It only has
+	  # effect in rules that affect the reply data stream such as
+	  # http_reply_access.
+
+	acl aclname rep_header header-name [-i] any\.regex\.here
+	  # regex match against any of the known reply headers. May be
+	  # thought of as a superset of "browser", "referer" and "mime-type"
+	  # ACLs.
+	  #
+	  # Example:
+	  #
+	  # acl many_spaces rep_header Content-Disposition -i [[:space:]]{3,}
+
+	acl acl_name external class_name [arguments...]
+	  # external ACL lookup via a helper class defined by the
+	  # external_acl_type directive.
+
+	acl urlgroup group1 ...
+	  # match against the urlgroup as indicated by redirectors
+
+	acl aclname user_cert attribute values...
+	  # match against attributes in a user SSL certificate
+	  # attribute is one of DN/C/O/CN/L/ST
+
+	acl aclname ca_cert attribute values...
+	  # match against attributes a users issuing CA SSL certificate
+	  # attribute is one of DN/C/O/CN/L/ST
+
+	acl aclname ext_user username ...
+	acl aclname ext_user_regex [-i] pattern ...
+	  # string match on username returned by external acl helper
+	  # use REQUIRED to accept any non-null user name.
+
+Examples:
+acl macaddress arp 09:00:2b:23:45:67
+acl myexample dst_as 1241
+acl password proxy_auth REQUIRED
+acl fileupload req_mime_type -i ^multipart/form-data$
+acl javascript rep_mime_type -i ^application/x-javascript$
+
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_acl">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_acl">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

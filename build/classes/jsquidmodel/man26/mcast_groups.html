@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: mcast_groups</title>
+    <meta name="keywords" content="squid squid.conf config configure mcast_groups" />
+    <meta name="description" content="Squid 2.6.STABLE18  mcast_groups " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_mcast_groups">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_mcast_groups">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="mcast_groups">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="mcast_groups">mcast_groups</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	This tag specifies a list of multicast groups which your server
+	should join to receive multicasted ICP queries.
+
+	NOTE!  Be very careful what you put here!  Be sure you
+	understand the difference between an ICP _query_ and an ICP
+	_reply_.  This option is to be set only if you want to RECEIVE
+	multicast queries.  Do NOT set this option to SEND multicast
+	ICP (use cache_peer for that).  ICP replies are always sent via
+	unicast, so this option does not affect whether or not you will
+	receive replies from multicast group members.
+
+	You must be very careful to NOT use a multicast address which
+	is already in use by another group of caches.
+
+	If you are unsure about multicast, please read the Multicast
+	chapter in the Squid FAQ (http://www.squid-cache.org/FAQ/).
+
+	Usage: mcast_groups 239.128.16.128 224.0.1.20
+
+	By default, Squid doesn't listen on any multicast groups.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_mcast_groups">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_mcast_groups">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

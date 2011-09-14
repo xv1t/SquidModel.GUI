@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: ftp_telnet_protocol</title>
+    <meta name="keywords" content="squid squid.conf config configure ftp_telnet_protocol" />
+    <meta name="description" content="Squid 2.6.STABLE18  ftp_telnet_protocol " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_ftp_telnet_protocol">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_ftp_telnet_protocol">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="ftp_telnet_protocol">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="ftp_telnet_protocol">ftp_telnet_protocol</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">ftp_telnet_protocol on</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	The FTP protocol is officially defined to use the telnet protocol
+	as transport channel for the control connection. However, many
+	implementations are broken and does not respect this aspect of
+	the FTP protocol.
+
+	If you have trouble accessing files with ASCII code 255 in the
+	path or similar problems involving this ASCII code you can
+	try setting this directive to off. If that helps, report to the
+	operator of the FTP server in question that their FTP server
+	is broken and does not follow the FTP standard.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_ftp_telnet_protocol">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_ftp_telnet_protocol">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

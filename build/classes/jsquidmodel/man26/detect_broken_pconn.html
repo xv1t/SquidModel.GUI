@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: detect_broken_pconn</title>
+    <meta name="keywords" content="squid squid.conf config configure detect_broken_pconn" />
+    <meta name="description" content="Squid 2.6.STABLE18  detect_broken_pconn " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_detect_broken_pconn">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_detect_broken_pconn">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="detect_broken_pconn">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="detect_broken_pconn">detect_broken_pconn</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">detect_broken_pconn off</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Some servers have been found to incorrectly signal the use
+	of HTTP/1.0 persistent connections even on replies not
+	compatible, causing significant delays. This server problem
+	has mostly been seen on redirects.
+
+	By enabling this directive Squid attempts to detect such
+	broken replies and automatically assume the reply is finished
+	after 10 seconds timeout.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_detect_broken_pconn">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_detect_broken_pconn">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

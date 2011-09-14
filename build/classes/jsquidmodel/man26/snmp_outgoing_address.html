@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: snmp_outgoing_address</title>
+    <meta name="keywords" content="squid squid.conf config configure snmp_outgoing_address" />
+    <meta name="description" content="Squid 2.6.STABLE18  snmp_outgoing_address " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_snmp_outgoing_address">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_snmp_outgoing_address">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="snmp_outgoing_address">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="snmp_outgoing_address">snmp_outgoing_address</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires">--enable-snmp</td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">snmp_outgoing_address 255.255.255.255</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Just like 'udp_incoming_address' above, but for the SNMP port.
+
+	snmp_incoming_address	is used for the SNMP socket receiving
+				messages from SNMP agents.
+	snmp_outgoing_address	is used for SNMP packets returned to SNMP
+				agents.
+
+	The default snmp_incoming_address (0.0.0.0) is to listen on all
+	available network interfaces.
+
+	If snmp_outgoing_address is set to 255.255.255.255 (the default)
+	it will use the same socket as snmp_incoming_address. Only
+	change this if you want to have SNMP replies sent using another
+	address than where this Squid listens for SNMP queries.
+
+	NOTE, snmp_incoming_address and snmp_outgoing_address can not have
+	the same value since they both use port 3401.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_snmp_outgoing_address">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_snmp_outgoing_address">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

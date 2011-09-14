@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: cache_replacement_policy</title>
+    <meta name="keywords" content="squid squid.conf config configure cache_replacement_policy" />
+    <meta name="description" content="Squid 2.6.STABLE18  cache_replacement_policy " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_cache_replacement_policy">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_cache_replacement_policy">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="cache_replacement_policy">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="cache_replacement_policy">cache_replacement_policy</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">cache_replacement_policy lru</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	The cache replacement policy parameter determines which
+	objects are evicted (replaced) when disk space is needed.
+
+	    lru       : Squid's original list based LRU policy
+	    heap GDSF : Greedy-Dual Size Frequency
+	    heap LFUDA: Least Frequently Used with Dynamic Aging
+	    heap LRU  : LRU policy implemented using a heap
+
+	Applies to any cache_dir lines listed below this.
+
+	The LRU policies keeps recently referenced objects.
+
+	The heap GDSF policy optimizes object hit rate by keeping smaller
+	popular objects in cache so it has a better chance of getting a
+	hit.  It achieves a lower byte hit rate than LFUDA though since
+	it evicts larger (possibly popular) objects.
+
+	The heap LFUDA policy keeps popular objects in cache regardless of
+	their size and thus optimizes byte hit rate at the expense of
+	hit rate since one large, popular object will prevent many
+	smaller, slightly less popular objects from being cached.
+
+	Both policies utilize a dynamic aging mechanism that prevents
+	cache pollution that can otherwise occur with frequency-based
+	replacement policies.
+
+	NOTE: if using the LFUDA replacement policy you should increase
+	the value of maximum_object_size above its default of 4096 KB to
+	to maximize the potential byte hit rate improvement of LFUDA.
+
+	For more information about the GDSF and LFUDA cache replacement
+	policies see http://www.hpl.hp.com/techreports/1999/HPL-1999-69.html
+	and http://fog.hpl.external.hp.com/techreports/98/HPL-98-173.html.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_cache_replacement_policy">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_cache_replacement_policy">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

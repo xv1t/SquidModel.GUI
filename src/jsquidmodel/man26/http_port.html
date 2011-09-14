@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: http_port</title>
+    <meta name="keywords" content="squid squid.conf config configure http_port" />
+    <meta name="description" content="Squid 2.6.STABLE18  http_port " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_http_port">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_http_port">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="http_port">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="http_port">http_port</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias">ascii_port</td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+# Squid normally listens to port 3128
+http_port 3128
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Usage:	port [options]
+		hostname:port [options]
+		1.2.3.4:port [options]
+
+	The socket addresses where Squid will listen for HTTP client
+	requests.  You may specify multiple socket addresses.
+	There are three forms: port alone, hostname with port, and
+	IP address with port.  If you specify a hostname or IP
+	address, Squid binds the socket to that specific
+	address.  This replaces the old 'tcp_incoming_address'
+	option.  Most likely, you do not need to bind to a specific
+	address, so you can use the port number alone.
+
+	If you are running Squid in accelerator mode, you
+	probably want to listen on port 80 also, or instead.
+
+	You may specify multiple socket addresses on multiple lines.
+
+	Options:
+
+	   transparent	Support for transparent interception of
+			outgoing requests without browser settings.
+
+	   tproxy	Support Linux TPROXY for spoofing outgoing
+			connections using the client IP address.
+
+	   accel	Accelerator mode. Also needs at least one
+			of vhost/vport/defaultsite.
+
+	   defaultsite=domainname
+			What to use for the Host: header if it is not present
+			in a request. Determines what site (not origin server)
+			accelerators should consider the default.
+			Implies accel.
+
+	   vhost	Accelerator mode using Host header for virtual
+			domain support. Implies accel.
+
+	   vport	Accelerator with IP based virtual host support.
+			Implies accel.
+
+	   vport=NN	As above, but uses specified port number rather
+			than the http_port number. Implies accel.
+
+	   urlgroup=	Default urlgroup to mark requests with (see
+			also acl urlgroup and url_rewrite_program)
+
+	   protocol=	Protocol to reconstruct accelerated requests with.
+			Defaults to http.
+
+	   no-connection-auth
+			Prevent forwarding of Microsoft connection oriented
+			authentication (NTLM, Negotiate and Kerberos)
+
+	If you run Squid on a dual-homed machine with an internal
+	and an external interface we recommend you to specify the
+	internal address:port in http_port. This way Squid will only be
+	visible on the internal address.
+
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_http_port">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_http_port">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

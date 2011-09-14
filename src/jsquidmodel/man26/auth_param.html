@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: auth_param</title>
+    <meta name="keywords" content="squid squid.conf config configure auth_param" />
+    <meta name="description" content="Squid 2.6.STABLE18  auth_param " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_auth_param">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_auth_param">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="auth_param">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="auth_param">auth_param</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+#Recommended minimum configuration per scheme:
+#auth_param negotiate program &lt;uncomment and complete this line to activate&gt;
+#auth_param negotiate children 5
+#auth_param negotiate keep_alive on
+#auth_param ntlm program &lt;uncomment and complete this line to activate&gt;
+#auth_param ntlm children 5
+#auth_param ntlm keep_alive on
+#auth_param digest program &lt;uncomment and complete this line&gt;
+#auth_param digest children 5
+#auth_param digest realm Squid proxy-caching web server
+#auth_param digest nonce_garbage_interval 5 minutes
+#auth_param digest nonce_max_duration 30 minutes
+#auth_param digest nonce_max_count 50
+#auth_param basic program &lt;uncomment and complete this line&gt;
+#auth_param basic children 5
+#auth_param basic realm Squid proxy-caching web server
+#auth_param basic credentialsttl 2 hours
+#auth_param basic casesensitive off
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	This is used to define parameters for the various authentication
+	schemes supported by Squid.
+
+	format: auth_param scheme parameter [setting]
+
+	The order in which authentication schemes are presented to the client is
+	dependent on the order the scheme first appears in config file. IE
+	has a bug (it's not RFC 2617 compliant) in that it will use the basic
+	scheme if basic is the first entry presented, even if more secure
+	schemes are presented. For now use the order in the recommended
+	settings section below. If other browsers have difficulties (don't
+	recognize the schemes offered even if you are using basic) either
+	put basic first, or disable the other schemes (by commenting out their
+	program entry).
+
+	Once an authentication scheme is fully configured, it can only be
+	shutdown by shutting squid down and restarting. Changes can be made on
+	the fly and activated with a reconfigure. I.E. You can change to a
+	different helper, but not unconfigure the helper completely.
+
+	Please note that while this directive defines how Squid processes
+	authentication it does not automatically activate authentication.
+	To use authentication you must in addition make use of ACLs based
+	on login name in http_access (proxy_auth, proxy_auth_regex or
+	external with %LOGIN used in the format tag). The browser will be
+	challenged for authentication on the first such acl encountered
+	in http_access processing and will also be re-challenged for new
+	login credentials if the request is being denied by a proxy_auth
+	type acl.
+
+	WARNING: authentication can't be used in a transparently intercepting
+	proxy as the client then thinks it is talking to an origin server and
+	not the proxy. This is a limitation of bending the TCP/IP protocol to
+	transparently intercepting port 80, not a limitation in Squid.
+
+	=== Parameters for the basic scheme follow. ===
+
+	"program" cmdline
+	Specify the command for the external authenticator.  Such a program
+	reads a line containing "username password" and replies "OK" or
+	"ERR" in an endless loop. "ERR" responses may optionally be followed
+	by a error description available as %m in the returned error page.
+
+	By default, the basic authentication scheme is not used unless a
+	program is specified.
+
+	If you want to use the traditional proxy authentication, jump over to
+	the helpers/basic_auth/NCSA directory and type:
+		% make
+		% make install
+
+	Then, set this line to something like
+
+	auth_param basic program /usr/local/squid/libexec/ncsa_auth /usr/local/squid/etc/passwd
+
+	"children" numberofchildren
+	The number of authenticator processes to spawn. If you start too few
+	squid will have to wait for them to process a backlog of credential
+	verifications, slowing it down. When credential verifications are
+	done via a (slow) network you are likely to need lots of
+	authenticator processes.
+	auth_param basic children 5
+
+	"concurrency" numberofconcurrentrequests
+	The number of concurrent requests/channels the helper supports.
+	Changes the protocol used to include a channel number first on
+	the request/response line, allowing multiple requests to be sent
+	to the same helper in parallell without wating for the response.
+	Must not be set unless it's known the helper supports this.
+
+	"realm" realmstring
+	Specifies the realm name which is to be reported to the client for
+	the basic proxy authentication scheme (part of the text the user
+	will see when prompted their username and password).
+	auth_param basic realm Squid proxy-caching web server
+
+	"credentialsttl" timetolive
+	Specifies how long squid assumes an externally validated
+	username:password pair is valid for - in other words how often the
+	helper program is called for that user. Set this low to force
+	revalidation with short lived passwords.  Note that setting this high
+	does not impact your susceptibility to replay attacks unless you are
+	using an one-time password system (such as SecureID). If you are using
+	such a system, you will be vulnerable to replay attacks unless you
+	also use the max_user_ip ACL in an http_access rule.
+	auth_param basic credentialsttl 2 hours
+
+	"casesensitive" on|off
+	Specifies if usernames are case sensitive. Most user databases are
+	case insensitive allowing the same username to be spelled using both
+	lower and upper case letters, but some are case sensitive. This
+	makes a big difference for user_max_ip ACL processing and similar.
+	auth_param basic casesensitive off
+
+	"blankpassword" on|off
+	Specifies if blank passwords should be supported. Defaults to off
+	as there is multiple authentication backends which handles blank
+	passwords as "guest" access.
+
+	=== Parameters for the digest scheme follow ===
+
+	"program" cmdline
+	Specify the command for the external authenticator.  Such a program
+	reads a line containing "username":"realm" and replies with the
+	appropriate H(A1) value hex encoded or ERR if the user (or his H(A1)
+	hash) does not exists.  See RFC 2616 for the definition of H(A1).
+	"ERR" responses may optionally be followed by a error description
+	available as %m in the returned error page.
+
+	By default, the digest authentication scheme is not used unless a
+	program is specified.
+
+	If you want to use a digest authenticator, jump over to the
+	helpers/digest_auth/ directory and choose the authenticator to use.
+	It it's directory type
+		% make
+		% make install
+
+	Then, set this line to something like
+
+	auth_param digest program /usr/local/squid/libexec/digest_auth_pw /usr/local/squid/etc/digpass
+
+	"children" numberofchildren
+	The number of authenticator processes to spawn. If you start too few
+	squid will have to wait for them to process a backlog of credential
+	verifications, slowing it down. When credential verifications are
+	done via a (slow) network you are likely to need lots of
+	authenticator processes.
+	auth_param digest children 5
+
+	"concurrency" numberofconcurrentrequests
+	The number of concurrent requests/channels the helper supports.
+	Changes the protocol used to include a channel number first on
+	the request/response line, allowing multiple requests to be sent
+	to the same helper in parallell without wating for the response.
+	Must not be set unless it's known the helper supports this.
+
+	"realm" realmstring
+	Specifies the realm name which is to be reported to the client for the
+	digest proxy authentication scheme (part of the text the user will see
+	when prompted their username and password).
+	auth_param digest realm Squid proxy-caching web server
+
+	"nonce_garbage_interval" timeinterval
+	Specifies the interval that nonces that have been issued to clients are
+	checked for validity.
+	auth_param digest nonce_garbage_interval 5 minutes
+
+	"nonce_max_duration" timeinterval
+	Specifies the maximum length of time a given nonce will be valid for.
+	auth_param digest nonce_max_duration 30 minutes
+
+	"nonce_max_count" number
+	Specifies the maximum number of times a given nonce can be used.
+	auth_param digest nonce_max_count 50
+
+	"nonce_strictness" on|off
+	Determines if squid requires strict increment-by-1 behavior for nonce
+	counts, or just incrementing (off - for use when useragents generate
+	nonce counts that occasionally miss 1 (ie, 1,2,4,6)).
+	auth_param digest nonce_strictness off
+
+	"check_nonce_count" on|off
+	This directive if set to off can disable the nonce count check
+	completely to work around buggy digest qop implementations in certain
+	mainstream browser versions. Default on to check the nonce count to
+	protect from authentication replay attacks.
+	auth_param digest check_nonce_count on
+
+	"post_workaround" on|off
+	This is a workaround to certain buggy browsers who sends an incorrect
+	request digest in POST requests when reusing the same nonce as acquired
+	earlier in response to a GET request.
+	auth_param digest post_workaround off
+
+	=== NTLM scheme options follow ===
+
+	"program" cmdline
+	Specify the command for the external NTLM authenticator. Such a
+	program participates in the NTLMSSP exchanges between Squid and the
+	client and reads commands according to the Squid NTLMSSP helper
+	protocol. See helpers/ntlm_auth/ for details. Recommended ntlm
+	authenticator is ntlm_auth from Samba-3.X, but a number of other
+	ntlm authenticators is available.
+
+	By default, the ntlm authentication scheme is not used unless a
+	program is specified.
+
+	auth_param ntlm program /path/to/samba/bin/ntlm_auth --helper-protocol=squid-2.5-ntlmssp
+
+	"children" numberofchildren
+	The number of authenticator processes to spawn. If you start too few
+	squid will have to wait for them to process a backlog of credential
+	verifications, slowing it down. When credential verifications are
+	done via a (slow) network you are likely to need lots of
+	authenticator processes.
+	auth_param ntlm children 5
+
+	"keep_alive" on|off
+	This option enables the use of keep-alive on the initial
+	authentication request. It has been reported some versions of MSIE
+	have problems if this is enabled, but performance will be increased
+	if enabled.
+
+	auth_param ntlm keep_alive on
+
+	=== Negotiate scheme options follow ===
+
+	"program" cmdline
+	Specify the command for the external Negotiate authenticator. Such a
+	program participates in the SPNEGO exchanges between Squid and the
+	client and reads commands according to the Squid ntlmssp helper
+	protocol. See helpers/ntlm_auth/ for details. Recommended SPNEGO
+	authenticator is ntlm_auth from Samba-4.X.
+
+	By default, the Negotiate authentication scheme is not used unless a
+	program is specified.
+
+	auth_param negotiate program /path/to/samba/bin/ntlm_auth --helper-protocol=gss-spnego
+
+	"children" numberofchildren
+	The number of authenticator processes to spawn. If you start too few
+	squid will have to wait for them to process a backlog of credential
+	verifications, slowing it down. When credential verifications are
+	done via a (slow) network you are likely to need lots of
+	authenticator processes.
+	auth_param negotiate children 5
+
+	"keep_alive" on|off
+	If you experience problems with PUT/POST requests when using the
+	Negotiate authentication scheme then you can try setting this to
+	off. This will cause Squid to forcibly close the connection on
+	the initial requests where the browser asks which schemes are
+	supported by the proxy.
+
+	auth_param negotiate keep_alive on
+
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_auth_param">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_auth_param">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

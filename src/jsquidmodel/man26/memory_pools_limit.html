@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: memory_pools_limit</title>
+    <meta name="keywords" content="squid squid.conf config configure memory_pools_limit" />
+    <meta name="description" content="Squid 2.6.STABLE18  memory_pools_limit " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_memory_pools_limit">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_memory_pools_limit">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="memory_pools_limit">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="memory_pools_limit">memory_pools_limit</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">memory_pools_limit 5 MB</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Used only with memory_pools on:
+	memory_pools_limit 50 MB
+
+	If set to a non-zero value, Squid will keep at most the specified
+	limit of allocated (but unused) memory in memory pools. All free()
+	requests that exceed this limit will be handled by your malloc
+	library. Squid does not pre-allocate any memory, just safe-keeps
+	objects that otherwise would be free()d. Thus, it is safe to set
+	memory_pools_limit to a reasonably high value even if your
+	configuration will use less memory.
+
+	If set to zero, Squid will keep all memory it can. That is, there
+	will be no limit on the total amount of memory used for safe-keeping.
+
+	To disable memory allocation optimization, do not set
+	memory_pools_limit to 0. Set memory_pools to "off" instead.
+
+	An overhead for maintaining memory pools is not taken into account
+	when the limit is checked. This overhead is close to four bytes per
+	object kept. However, pools may actually _save_ memory because of
+	reduced memory thrashing in your malloc library.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_memory_pools_limit">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_memory_pools_limit">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

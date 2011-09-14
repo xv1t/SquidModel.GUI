@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: delay_access</title>
+    <meta name="keywords" content="squid squid.conf config configure delay_access" />
+    <meta name="description" content="Squid 2.6.STABLE18  delay_access " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_delay_access">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_delay_access">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="delay_access">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="delay_access">delay_access</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires">--enable-delay-pools</td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	This is used to determine which delay pool a request falls into.
+
+	delay_access is sorted per pool and the matching starts with pool 1,
+	then pool 2, ..., and finally pool N. The first delay pool where the
+	request is allowed is selected for the request. If it does not allow
+	the request to any pool then the request is not delayed (default).
+
+	For example, if you want some_big_clients in delay
+	pool 1 and lotsa_little_clients in delay pool 2:
+
+Example:
+ delay_access 1 allow some_big_clients
+ delay_access 1 deny all
+ delay_access 2 allow lotsa_little_clients
+ delay_access 2 deny all
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_delay_access">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_delay_access">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

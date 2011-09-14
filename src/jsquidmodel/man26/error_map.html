@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: error_map</title>
+    <meta name="keywords" content="squid squid.conf config configure error_map" />
+    <meta name="description" content="Squid 2.6.STABLE18  error_map " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_error_map">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_error_map">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="error_map">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="error_map">error_map</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">none</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	Map errors to custom messages
+
+	    error_map message_url http_status ...
+
+	http_status ... is a list of HTTP status codes or Squid error
+	messages.
+
+	Use in accelerators to substitute the error messages returned
+	by servers with other custom errors.
+
+	    error_map http://your.server/error/404.shtml 404
+
+	Requests for error messages is a GET request for the configured
+	URL with the following special headers
+
+	    X-Error-Status:	The received HTTP status code (i.e. 404)
+	    X-Request-URI:	The requested URI where the error occurred
+
+	In Addition the following headers are forwarded from the client
+	request:
+
+	    User-Agent, Cookie, X-Forwarded-For, Via, Authorization,
+	    Accept, Referer
+
+	And the following headers from the server reply:
+
+	    Server, Via, Location, Content-Location
+
+	The reply returned to the client will carry the original HTTP
+	headers from the real error message, but with the reply body
+	of the configured error message.
+
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_error_map">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_error_map">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Squid 2.6.STABLE18 Configuration File: query_icmp</title>
+    <meta name="keywords" content="squid squid.conf config configure query_icmp" />
+    <meta name="description" content="Squid 2.6.STABLE18  query_icmp " />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/default.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.squid-cache.org/cfgman.css" />
+</head>
+
+<body>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_query_icmp">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_query_icmp">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  <table class="summary" summary="query_icmp">
+    <tr>
+      <th>Option Name:</th><td id="name"><a name="query_icmp">query_icmp</a></td>
+    </tr>
+    <tr>
+      <th>Replaces:</th><td id="alias"></td>
+    </tr>
+    <tr>
+      <th>Requires:</th><td id="requires"></td>
+    </tr>
+    <tr>
+      <th>Default Value:</th><td id="default">query_icmp off</td>
+    </tr>
+    <tr>
+      <th>Suggested Config:</th>
+      <td id="config">
+<pre>
+
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td id="detail" colspan="2">
+<pre>
+	If you want to ask your peers to include ICMP data in their ICP
+	replies, enable this option.
+
+	If your peer has configured Squid (during compilation) with
+	'--enable-icmp' that peer will send ICMP pings to origin server
+	sites of the URLs it receives.  If you enable this option the
+	ICP replies from that peer will include the ICMP data (if available).
+	Then, when choosing a parent cache, Squid will choose the parent with
+	the minimal RTT to the origin server.  When this happens, the
+	hierarchy field of the access.log will be
+	"CLOSEST_PARENT_MISS".  This option is off by default.
+
+</pre>
+      </td>
+    </tr>
+    <tr class="spacer"><td>&nbsp;</td></tr>
+  </table>
+
+  <p class="cfglinks">
+  |&nbsp;<a href="index.html#toc_query_icmp">Index</a>&nbsp;
+  |&nbsp;<a href="index_all.html#toc_query_icmp">Alphabetical Index</a>&nbsp;|
+  </p>
+
+  </body>
+</html>
